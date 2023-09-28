@@ -26,23 +26,15 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         _desiredVelocity = _rigidbody2D.velocity;
-        if (IsPlayerGrounded() == true)
+        
+        if (IsPlayerGrounded())
         {
             _doubleJumps = 1;
         }
-
-
-        if (_input.jumpPressed && IsPlayerGrounded())
+        
+        if (_input.jumpPressed)
         {
-            //_rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, jumpSpeed);
-            _desiredVelocity.y = jumpSpeed;
-            
-        }
-
-        if (_input.jumpPressed && _doubleJumps > 0)
-        {
-            _doubleJumps--;
-            _desiredVelocity.y = jumpSpeed;
+            Jump();
         }
         
         if (_input.jumpReleased && _desiredVelocity.y > 0f)
@@ -62,5 +54,21 @@ public class PlayerMovement : MonoBehaviour
     private bool IsPlayerGrounded()
     {
         return Physics2D.Raycast(transform.position, Vector2.down, 1.1f, whatIsGround);
+    }
+
+    private void Jump()
+    {
+        if (IsPlayerGrounded())
+        {
+            //_rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, jumpSpeed);
+            _desiredVelocity.y = jumpSpeed;
+            
+        }
+
+        else if(_doubleJumps > 0)
+        {
+            _doubleJumps--;
+            _desiredVelocity.y = jumpSpeed;
+        }
     }
 }
