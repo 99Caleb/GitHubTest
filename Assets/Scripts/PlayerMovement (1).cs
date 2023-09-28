@@ -14,6 +14,9 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D _rigidbody2D;
     private InputManager _input;
 
+    [Header("DoubleJump")] 
+    private int _doubleJumps = 1;
+
     private void Start()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
@@ -23,11 +26,22 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         _desiredVelocity = _rigidbody2D.velocity;
+        if (IsPlayerGrounded() == true)
+        {
+            _doubleJumps = 1;
+        }
 
 
         if (_input.jumpPressed && IsPlayerGrounded())
         {
             //_rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, jumpSpeed);
+            _desiredVelocity.y = jumpSpeed;
+            
+        }
+
+        if (_input.jumpPressed && _doubleJumps > 0)
+        {
+            _doubleJumps--;
             _desiredVelocity.y = jumpSpeed;
         }
         
