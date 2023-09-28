@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -69,6 +70,19 @@ public class PlayerMovement : MonoBehaviour
         {
             _doubleJumps--;
             _desiredVelocity.y = jumpSpeed;
+        }
+    }
+    
+    private void OnTriggerEnter2D(Collider2D coll)
+    {
+        if (coll.transform.CompareTag("Death"))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+        if (coll.transform.CompareTag("Door"))
+        {
+            SceneManager.LoadScene("Scene2");
         }
     }
 }
