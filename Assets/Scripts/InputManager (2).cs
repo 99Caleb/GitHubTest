@@ -24,6 +24,8 @@ public class InputManager : MonoBehaviour
 // These variables are used to hold the current Input source
     private Keyboard _keyboard;
     private Gamepad _gamepad;
+    
+    public static InputManager Instance;
 
     private void Start()
     {
@@ -31,7 +33,13 @@ public class InputManager : MonoBehaviour
         _keyboard = Keyboard.current;
         _gamepad = Gamepad.current;
     }
-
+    
+    private void Awake()
+    {
+        // Assign the instance when the InputManager is initialized
+        Instance = this;
+    }
+    
     private void Update()
     {
     // Check whether we are using Gamepad or Keyboard

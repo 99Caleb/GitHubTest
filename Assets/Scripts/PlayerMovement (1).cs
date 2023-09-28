@@ -79,10 +79,5 @@ public class PlayerMovement : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
-
-        if (coll.transform.CompareTag("Door"))
-        {
-            SceneManager.LoadScene("Scene2");
-        }
     }
 }
